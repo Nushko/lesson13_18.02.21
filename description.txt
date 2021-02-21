@@ -1,0 +1,73 @@
+Многопоточная программирование - это работа состоящая из нескольких потоков
+Плюс в том, что они работают независимо друг от друга: один может работать, другой ждать и т.д.
+
+Пример кода:
+	static void Main(string[] args)
+    {
+        
+        Thread thread = new Thread(new ThreadStart(SecondMethod));
+
+        Console.WriteLine("Начало Main");
+        thread.Start();
+        Console.WriteLine("Завершение Main");
+        Console.ReadKey();
+    }
+
+    static void SecondMethod()
+    {
+        Console.WriteLine("Начало SecondMethod");
+        Thread.Sleep(1000);
+        Console.WriteLine("Завершение SecondMethod");
+    }
+
+Асинхронное программирование - похоже на многопоточное программирование, но программа не останавливается
+для выполнения какой либо задачи, а продолжает делать остальные задачи.
+P.S. await позволяет дождаться результата выполнения.
+
+Пример кода:
+
+	static void Factorial(int n)
+	{
+		int result = 1;
+		for (int i = 1; i <= n; i += 1)
+			result *= i;
+		Thread.Sleep(1000);
+		Console.WriteLine($"{n}! = {result}");
+	}
+	
+	static async void FactorialAsync(int n)
+	{
+		await Task.Run(() => Factorial(n));
+	}
+
+	static void Main(string[] args)
+	{
+		Console.WriteLine("Начало Main");
+		FactorialAsync(3);
+		FactorialAsync(4);
+		Console.WriteLine("Завершение Main");
+		Console.ReadKey();
+	}
+
+Параллельное программирование - по своей сути это пример многопоточного программирования. 
+Мы делим одну задачу на независимые подзадачи, рассчитываем их параллельно и объедининяем результаты в конце.
+
+Пример кода:
+
+	static void Main(string[] args)
+	    {
+			Thread thread = new Thread(new ThreadStart(SecondMethod));
+
+			Console.WriteLine("Начало Main");
+			task.Start();
+	        task.Wait();
+			Console.WriteLine("Завершение Main");
+	        Console.ReadKey();
+        }         
+        
+        static void SecondMethod()
+        {
+			Console.WriteLine("Начало SecondMethod");
+			Thread.Sleep(5000);
+			Console.WriteLine("Завершение SecondMethod");
+	    }
